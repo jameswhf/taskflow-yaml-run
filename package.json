@@ -1,0 +1,35 @@
+{
+  "name": "taskflow-yaml-run",
+  "displayName": "taskflow-yaml-run",
+  "description": "Run taskflow jobs from YAML files",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:yaml"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "taskflow-yaml-run.runJob",
+      "title": "Run Taskflow Job"
+    }]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "pnpm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.99.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "eslint": "^9.23.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
