@@ -9,15 +9,26 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onLanguage:yaml"
-  ],
+  "activationEvents": [],
   "main": "./src/extension.js",
   "contributes": {
     "commands": [{
-      "command": "taskflow-yaml-run.runJob",
-      "title": "Run Taskflow Job"
-    }]
+      "command": "taskflow.runYamlJob",
+      "title": "taskflow: 执行YAML文件对应的用例",
+      "icon": {
+        "light": "./src/run-icon.svg",
+        "dark": "./src/run-icon.svg"
+      }
+    }],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourcePath =~ /.*src\\/main\\/resources\\//i && editorLangId == yaml",
+          "command": "taskflow.runYamlJob",
+          "group": "navigation@1"
+        }
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint .",

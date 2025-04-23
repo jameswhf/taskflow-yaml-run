@@ -15,95 +15,36 @@ function activate(context) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "taskflow-yaml-run" is now active!');
 
-	// 运行图标的装饰器类型
-	const runIconDecorationType = vscode.window.createTextEditorDecorationType({
-		before: {
-			contentText: '▶',
-			color: '#00ff00',
-			margin: '0 5px 0 0'
-		}
-	});
-
-	// 存储当前装饰器的范围
-	let decorationRanges = [];
-
-	// 更新装饰器
-	function updateDecorations(editor) {
-		if (!editor) return;
-
-		const document = editor.document;
-		if (document.languageId !== 'yaml') return;
-
-		const text = document.getText();
-		const lines = text.split('\n');
-		decorationRanges = [];
-
-		for (let i = 0; i < lines.length; i++) {
-			const line = lines[i].trim();
-			if (line.startsWith('job:')) {
-				const range = new vscode.Range(
-					new vscode.Position(i, 0),
-					new vscode.Position(i, 0)
-				);
-				decorationRanges.push(range);
-			}
-		}
-
-		editor.setDecorations(runIconDecorationType, decorationRanges);
-	}
-
 	// 运行任务
-	async function runTaskflowJob(editor, position) {
-		const document = editor.document;
-		const filePath = document.uri.fsPath;
-		
-		const command = `taskflow_run -f "${filePath}"`;
-		
+	async function runTaskflowJob(editor, filePath) {		
+		const command = `taskflow_run -f ${filePath}`;
 		try {
-			const terminal = vscode.window.createTerminal('Taskflow Run');
+			const terminal = vscode.window.terminals.find(t => t.name === 'Taskflow Run') || vscode.window.createTerminal('Taskflow Run');
 			terminal.sendText(command);
 			terminal.show();
 		} catch (error) {
 			vscode.window.showErrorMessage(`Failed to run taskflow job: ${error.message}`);
 		}
 	}
-
-	// 监听文档变化
-	let disposable = vscode.workspace.onDidChangeTextDocument(event => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor && event.document === editor.document) {
-			updateDecorations(editor);
-		}
-	});
-
-	// 监听编辑器切换
-	disposable = vscode.window.onDidChangeActiveTextEditor(editor => {
-		if (editor) {
-			updateDecorations(editor);
-		}
-	});
-
-	// 注册点击事件
-	disposable = vscode.window.onDidChangeTextEditorSelection(event => {
-		const editor = event.textEditor;
-		const position = event.selections[0].active;
-		
-		const range = decorationRanges.find(range => range.contains(position));
-		if (range) {
-			runTaskflowJob(editor, position);
-		}
-	});
-
 	// 注册命令
-	let commandDisposable = vscode.commands.registerCommand('taskflow-yaml-run.runJob', () => {
+	const commandDisposable = vscode.commands.registerCommand('taskflow.runYamlJob', (fileOrDirPath) => {
 		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			const position = editor.selection.active;
-			runTaskflowJob(editor, position);
+		const currentWorkspacePath = vscode.workspace.rootPath;
+		const yamlFileBaseDirPath = path.join(currentWorkspacePath, './src/main/resources')
+
+		const currentYamlFilePath = fileOrDirPath?.fsPath ?? editor.document.uri.fsPath;
+		if (currentYamlFilePath.startsWith(yamlFileBaseDirPath)) {
+			const relativeYamlFilePath = currentYamlFilePath.slice(yamlFileBaseDirPath.length + 1)
+			if (relativeYamlFilePath) {
+				console.log('需要执行的yaml文件路径', relativeYamlFilePath)
+				runTaskflowJob(editor, relativeYamlFilePath);
+				return
+			}
 		}
+		vscode.window.showErrorMessage(`目标文件或文件夹的路径 ${currentYamlFilePath} 不符合运行规范, 路径中必须包含 /src/main/resources/ 目录`);
 	});
 
-	context.subscriptions.push(disposable, commandDisposable);
+	context.subscriptions.push(commandDisposable)
 }
 
 // This method is called when your extension is deactivated
