@@ -17,7 +17,7 @@ function activate(context) {
 
 	// 运行任务
 	async function runTaskflowJob(editor, filePath) {		
-		const command = `taskflow_run -f ${filePath}`;
+		const command = `./mvnw clean compile exec:java -Dexec.mainClass="com.guandata.test.TestExecutor" -Dexec.args="-f ${filePath}"`;
 		try {
 			const terminal = vscode.window.terminals.find(t => t.name === 'Taskflow Run') || vscode.window.createTerminal('Taskflow Run');
 			terminal.sendText(command);

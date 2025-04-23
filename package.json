@@ -1,10 +1,14 @@
 {
   "name": "taskflow-yaml-run",
   "displayName": "taskflow-yaml-run",
-  "description": "Run taskflow jobs from YAML files",
-  "version": "0.0.1",
+  "description": "执行符合 guandata taskflow 框架要求的YAML测试用例",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.96.0"
+  },
+  "author": {
+    "name": "jameswhf",
+    "email": "jameswhf@qq.com"
   },
   "categories": [
     "Other"
@@ -12,18 +16,27 @@
   "activationEvents": [],
   "main": "./src/extension.js",
   "contributes": {
-    "commands": [{
-      "command": "taskflow.runYamlJob",
-      "title": "taskflow: 执行YAML文件对应的用例",
-      "icon": {
-        "light": "./src/run-icon.svg",
-        "dark": "./src/run-icon.svg"
+    "commands": [
+      {
+        "command": "taskflow.runYamlJob",
+        "title": "taskflow: 执行测试用例",
+        "icon": {
+          "light": "./src/assets/run-icon.svg",
+          "dark": "./src/assets/run-icon.svg"
+        }
       }
-    }],
+    ],
     "menus": {
       "editor/title": [
         {
           "when": "resourcePath =~ /.*src\\/main\\/resources\\//i && editorLangId == yaml",
+          "command": "taskflow.runYamlJob",
+          "group": "navigation@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourcePath =~ /.*src\\/main\\/resources\\//i && resourceScheme == file && (resourceExtname == .yaml || !resourceExtname)",
           "command": "taskflow.runYamlJob",
           "group": "navigation@1"
         }

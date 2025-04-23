@@ -1,65 +1,25 @@
-# taskflow-yaml-run README
+# taskflow-yaml-run
+为 基于 `guandata taskflow` 的 API自动化测试项目 开发的 用例快速执行工具。
 
-This is the README for your extension "taskflow-yaml-run". After writing up a brief description, we recommend including the following sections.
+## Getting Started 
+### 执行打开的 yaml 文件
+![image](./src/assets/editor_title_run.png){width=400}
 
-## Features
+[注] yaml 文件路径包含 `/src/main/resources/` 时, 才会支持 `▶️`
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### 文件目录树右键运行
 
-For example if there is an image subfolder under your extension project workspace:
+1. 执行单个 yaml 文件
 
-\!\[feature X\]\(images/feature-x.png\)
+![image](./src/assets/yaml_right_context_run.png){width=400}
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+2. 执行目录下所有 yaml 文件
+
+![image](./src/assets/dir_right_context_run.png){width=400}
+
+[注] 文件或文件夹路径包含 `/src/main/resources/` 时, 才会在右键中支持 `taskflow: 执行测试用例`
 
 ## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+API 自动化项目需要符合 `guandata taskflow` 的测试要求。
 
 **Enjoy!**
