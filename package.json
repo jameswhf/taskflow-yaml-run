@@ -2,7 +2,9 @@
   "name": "taskflow-yaml-run",
   "displayName": "taskflow-yaml-run",
   "description": "执行符合 guandata taskflow 框架要求的YAML测试用例",
+  "publisher": "jameswhf",
   "version": "1.0.0",
+  "icon": "src/assets/logo.png",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -49,11 +51,12 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.99.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
-    "eslint": "^9.23.0",
+    "@types/vscode": "^1.96.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jameswhf/taskflow-yaml-run.git"
   }
 }
