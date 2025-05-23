@@ -3,7 +3,7 @@
   "displayName": "taskflow-yaml-run",
   "description": "执行符合 guandata taskflow 框架要求的YAML测试用例",
   "publisher": "jameswhf",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "icon": "src/assets/logo.png",
   "engines": {
     "vscode": "^1.96.0"
@@ -23,7 +23,7 @@
     "commands": [
       {
         "command": "taskflow.runYamlJob",
-        "title": "taskflow: 执行测试用例",
+        "title": "taskflow: 运行测试用例",
         "icon": {
           "light": "./src/assets/run-icon.svg",
           "dark": "./src/assets/run-icon.svg"
